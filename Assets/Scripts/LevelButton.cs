@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class LevelButton : MonoBehaviour
+{
+    public LevelConfig Config;
+    public TMP_Text LevelNumberText;
+    public Image LockImage;
+
+    private void Start()
+    {
+        var button = GetComponent<Button>();
+        if (Config.IsPassed)
+        {
+            button.targetGraphic.color = Color.green;
+        }
+        if (!Config.canPlay)
+        {
+            LockImage.gameObject.SetActive(true);
+            LevelNumberText.gameObject.SetActive(false);
+            button.onClick.AddListener(ShowCantPlayMessage);
+        }
+        else
+        {
+            button.onClick.AddListener(PlayThisLevel);
+        }
+
+    }
+
+    private void PlayThisLevel()
+    {
+        GameManager.Config = Config;
+        SceneManager.LoadScene("GameScene");
+    }
+
+    private void ShowCantPlayMessage()
+    {
+
+    }
+}

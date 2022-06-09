@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea014dda55ee3f9409cca6a3de3eb761, type: 3}
+  m_Name: Level 1 Config
+  m_EditorClassIdentifier: 
+  canPlay: 1
+  IsPassed: 0
+  UnitSpeed: 8
+  CreateSpeed: 4
+  NodesInfo:
+  - Position: {x: -3.18, y: -0.02, z: 0}
+    Scale: {x: 0.38294226, y: 0.38294226, z: 0.38294226}
+    NodeSide: 0
+    StartUnits: 20
+  - Position: {x: 6.18, y: 3.35, z: 0}
+    Scale: {x: 0.2425581, y: 0.2425581, z: 0.2425581}
+    NodeSide: 1
+    StartUnits: 20
+  - Position: {x: 0.31, y: 3.04, z: 0}
+    Scale: {x: 0.26289567, y: 0.26289567, z: 0.26289567}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 5.58, y: -1.63, z: 0}
+    Scale: {x: 0.2649394, y: 0.2649394, z: 0.2649394}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: -7.6, y: 2.82, z: 0}
+    Scale: {x: 0.22389098, y: 0.22389098, z: 0.22389098}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 2.79, y: -2.91, z: 0}
+    Scale: {x: 0.28752473, y: 0.28752473, z: 0.28752473}
+    NodeSide: 2
+    StartUnits: 0
