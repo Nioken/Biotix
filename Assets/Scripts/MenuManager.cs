@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Newtonsoft.Json;
+using System.IO;
 
 public class MenuManager : MonoBehaviour
 {
@@ -24,6 +27,7 @@ public class MenuManager : MonoBehaviour
 
     private void OnEnable()
     {
+        LoadLevelsProgress();
         InitializeLevelButtons();
     }
 
@@ -32,6 +36,36 @@ public class MenuManager : MonoBehaviour
         Application.targetFrameRate = 60;
         AddUIListeners();
         SetLevelsLine();
+    }
+
+    public static void SaveLevelsProgress()
+    {
+        using (StreamWriter sr = new StreamWriter(Application.persistentDataPath + "/save.sav")) 
+        {
+            var configs = Resources.LoadAll<LevelConfig>("Configs/");
+            string SerializedLevelConfigs = JsonConvert.SerializeObject(configs, Formatting.Indented);
+            sr.Write(SerializedLevelConfigs);
+        }
+    }
+
+    private void LoadLevelsProgress()
+    {
+        try
+        {
+            using (StreamReader sr = new StreamReader(Application.persistentDataPath + "/save.sav"))
+            {
+                var loadedConfigs = JsonConvert.DeserializeObject<LevelConfig[]>(sr.ReadToEnd());
+                for (var i = 0; i < loadedConfigs.Length; i++)
+                {
+                    LevelButtons[i].Config.canPlay = loadedConfigs[i].canPlay;
+                    LevelButtons[i].Config.IsPassed = loadedConfigs[i].IsPassed;
+                }
+            }
+        }
+        catch (System.IO.FileNotFoundException)
+        {
+            Debug.Log("Save file is not created");
+        }
     }
 
     private void AddUIListeners()
@@ -44,12 +78,14 @@ public class MenuManager : MonoBehaviour
     {
         _menuWindow.SetActive(false);
         _levelsWindow.SetActive(true);
+        AudioManager.PlayUISound();
     }
 
     public void showMenuWindow()
     {
         _levelsWindow.SetActive(false);
         _menuWindow.SetActive(true);
+        AudioManager.PlayUISound();
     }
 
     public void SetLevelsLine()
@@ -69,4 +105,10 @@ public class MenuManager : MonoBehaviour
         else
                 LevelButtons[i].Config.canPlay = false;
     }
+
+    private void OnDestroy()
+    {
+        SaveLevelsProgress();
+    }
+
 }

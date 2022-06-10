@@ -1,16 +1,17 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelConfig", menuName ="LevelConfig")]
-
+[System.Serializable]
 public class LevelConfig : ScriptableObject
 {
     public bool canPlay;
     public bool IsPassed;
-    public float UnitSpeed;
-    public float CreateSpeed;
-    public NodeInfo[] NodesInfo;
+    [JsonIgnore] public float UnitSpeed;
+    [JsonIgnore] public float CreateSpeed;
+    [JsonIgnore] public NodeInfo[] NodesInfo;
 
     [System.Serializable]
     public struct NodeInfo

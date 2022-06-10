@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        Settings.LoadSettings();
         GameManager._uiManager = GetComponent<UIManager>();
         AddUIListeners();
     }
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
         _pausePanel.gameObject.SetActive(true);
         _pauseButton.gameObject.SetActive(false);
         Time.timeScale = 0;
+        AudioManager.PlayUISound();
     }
 
     private void UnpauseGame()
@@ -48,16 +50,19 @@ public class UIManager : MonoBehaviour
         _pausePanel.gameObject.SetActive(false);
         _pauseButton.gameObject.SetActive(true);
         Time.timeScale = 1;
+        AudioManager.PlayUISound();
     }
 
     private void ReplayLevel()
     {
+        AudioManager.PlayUISound();
         SceneManager.LoadScene("GameScene");
         Time.timeScale = 1;
     }
 
     private void ToMenu()
     {
+        AudioManager.PlayUISound();
         SceneManager.LoadScene("MenuScene");
         Time.timeScale = 1;
     }
@@ -85,5 +90,6 @@ public class UIManager : MonoBehaviour
     private void OnDestroy()
     {
         RemoveUIListeners();
+        Settings.SaveSettings();
     }
 }

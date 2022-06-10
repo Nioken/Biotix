@@ -33,6 +33,7 @@ public class LevelButton : MonoBehaviour
 
     private void PlayThisLevel()
     {
+        AudioManager.PlayUISound();
         GameManager.Config = Config;
         SceneManager.LoadScene("GameScene");
     }

@@ -96,5 +96,7 @@ public class GameManager : MonoBehaviour
         }
         else
             _uiManager.ShowLevelEndUI(false);
+
+        MenuManager.SaveLevelsProgress();
     }
 }

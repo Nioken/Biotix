@@ -86,7 +86,7 @@ public class LevelEditor : Editor
     public void CreateNewLevel()
     {
         LevelConfig newLevelConfig = CreateInstance<LevelConfig>();
-        AssetDatabase.CreateAsset(newLevelConfig, "Assets/Configs/newLevelConfig.asset");
+        AssetDatabase.CreateAsset(newLevelConfig, "Assets/Resources/Configs/newLevelConfig.asset");
         AssetDatabase.SaveAssets();
         _menuManager.ShowLevelWindow();
         CreateNewLevelButton(newLevelConfig);

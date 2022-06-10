@@ -95,20 +95,21 @@ public class Node : MonoBehaviour
         }
     }
 
-    private Unit CreateUnit()
+    private Unit CreateUnit(GameManager.Side unitSide)
     {
         var unitPosition = transform.position + UnityEngine.Random.insideUnitSphere * _spawnRadius;
 
         var unit = Instantiate(_unitPrefab, unitPosition, Quaternion.identity);
-        unit.UnitSide = NodeSide;
+        unit.UnitSide = unitSide;
         return unit;
     }
 
     private IEnumerator CreateUnitCorutine(int unitAmount, Node unitsTarget)
     {
+        var tmpSide = NodeSide;
         for (var i = 0; i < unitAmount; i++)
         {
-            CreateUnit().MoveTo(unitsTarget);
+            CreateUnit(tmpSide).MoveTo(unitsTarget);
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f,0.4f));
         }
     }
@@ -122,6 +123,7 @@ public class Node : MonoBehaviour
             if (unit.Target != this)
                 return;
 
+            AudioManager.PlayUnitAddSound();
             transform.DOScale(_defaultSacle + new Vector3(0.03f, 0.03f, 0.03f), 0.1f).OnComplete(() => transform.DOScale(_defaultSacle, 0.1f));
             if (NodeSide == unit.UnitSide)
             {
