@@ -10,6 +10,7 @@ public class LevelButton : MonoBehaviour
     public LevelConfig Config;
     public TMP_Text LevelNumberText;
     public Image LockImage;
+    public GameObject CantPlayMessage;
 
     private void Start()
     {
@@ -35,11 +36,11 @@ public class LevelButton : MonoBehaviour
     {
         AudioManager.PlayUISound();
         GameManager.Config = Config;
-        SceneManager.LoadScene("GameScene");
+        LoadingScreen.GameSceneLoadOperation.allowSceneActivation = true;
     }
 
     private void ShowCantPlayMessage()
     {
-
+        CantPlayMessage.SetActive(true);
     }
 }

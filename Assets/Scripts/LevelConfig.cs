@@ -12,6 +12,8 @@ public class LevelConfig : ScriptableObject
     [JsonIgnore] public float UnitSpeed;
     [JsonIgnore] public float CreateSpeed;
     [JsonIgnore] public NodeInfo[] NodesInfo;
+    [JsonIgnore] public int MinAIThinkTime;
+    [JsonIgnore] public int MaxAIThinkTime;
 
     [System.Serializable]
     public struct NodeInfo

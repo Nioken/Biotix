@@ -56,6 +56,9 @@ public class PlayerControl : MonoBehaviour
         _playerLine.SetPosition(0, Vector3.zero);
         _playerLine.SetPosition(1, Vector3.zero);
         _firstNode = null;
+        if (_secondNode != null)
+            _secondNode.HideSelection();
+
         _secondNode = null;
     }
 
@@ -78,6 +81,7 @@ public class PlayerControl : MonoBehaviour
                     if (castedNode != _firstNode)
                     {
                         _secondNode = castedNode;
+                        _secondNode.ShowSelection();
                     }
                 }
             }
@@ -86,6 +90,9 @@ public class PlayerControl : MonoBehaviour
         {
             if(_firstNode != null)
             {
+                if (_secondNode != null)
+                    _secondNode.HideSelection();
+
                 _secondNode = null;
             }
         }

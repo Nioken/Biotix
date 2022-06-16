@@ -18,7 +18,7 @@ public class AIController : MonoBehaviour
         StartCoroutine(DoFirstStep());
     }
 
-    IEnumerator DoFirstStep()
+    private IEnumerator DoFirstStep()
     {
         Debug.Log("AI: I come to did first step!");
         yield return new WaitForSeconds(Random.Range(1,3));
@@ -28,13 +28,52 @@ public class AIController : MonoBehaviour
         StartCoroutine(AIRandomStep());
     }
 
-    IEnumerator AIRandomStep()
+    private IEnumerator AIRandomStep()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(1,10f));
-            FromRandomToRandomNodeStep();
+            var minTime = GameManager.Config.MinAIThinkTime;
+            var maxTime = GameManager.Config.MaxAIThinkTime;
+            yield return new WaitForSeconds(Random.Range(minTime, maxTime));
+            var randomStep = Random.Range(0, 2);
+            switch (randomStep)
+            {
+                case 0:
+                    FromRandomToRandomNodeStep();
+                    break;
+                case 1:
+                    AttackStep();
+                    break;
+            }
         }
+    }
+
+    private void AttackStep()
+    {
+        var playerNodes = ReturnAllPlayerNodes();
+        var aiNodes = ReturnAllAINodes();
+        var maxUnits = 0;
+        foreach(var aiNode in aiNodes)
+        {
+            if (aiNode.UnitsCount >= maxUnits)
+            {
+                maxUnits = aiNode.UnitsCount;
+                _firstNode = aiNode;
+            }
+        }
+
+        var minUntits = playerNodes[0].UnitsCount;
+        foreach(var playerNode in playerNodes)
+        {
+            if (playerNode.UnitsCount <= minUntits)
+            {
+                minUntits = playerNode.UnitsCount;
+                _secondNode = playerNode;
+            }
+        }
+
+        if(_firstNode.UnitsCount > _secondNode.UnitsCount)
+            _firstNode.SendUnit(_secondNode);
     }
 
     private void FromRandomToRandomNodeStep()
@@ -72,6 +111,15 @@ public class AIController : MonoBehaviour
     {
         var nodes = from node in GameManager.AllNodes
                     where node.NodeSide != GameManager.Side.AI
+                    select node;
+
+        return nodes.ToList();
+    }
+
+    private List<Node> ReturnAllPlayerNodes()
+    {
+        var nodes = from node in GameManager.AllNodes
+                    where node.NodeSide == GameManager.Side.Player
                     select node;
 
         return nodes.ToList();

@@ -41,3 +41,5 @@ MonoBehaviour:
     Scale: {x: 0.28752473, y: 0.28752473, z: 0.28752473}
     NodeSide: 2
     StartUnits: 0
+  MinAIThinkTime: 1
+  MaxAIThinkTime: 10

@@ -16,6 +16,8 @@ public class Node : MonoBehaviour
     [SerializeField] private Material GreenMaterial;
     [SerializeField] private Material RedMaterial;
     [SerializeField] private Material WhiteMaterial;
+    public GameObject SelectionSprite;
+    private Vector3 _defaultSelectionSize;
     private Vector3 _defaultSacle;
 
     private void Start()
@@ -24,6 +26,9 @@ public class Node : MonoBehaviour
         _spawnRadius = GetComponent<SphereCollider>().radius / 2f;
         InitializeNode();
         SetRandomAnim();
+        _defaultSelectionSize = SelectionSprite.transform.localScale;
+        SelectionSprite.transform.localScale = Vector3.zero;
+        SelectionSprite.transform.DORotate(new Vector3(0, 0, 360), 10f, RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.Linear);
     }
 
     public void InitializeNode()
@@ -114,6 +119,16 @@ public class Node : MonoBehaviour
         }
     }
 
+    public void ShowSelection()
+    {
+        SelectionSprite.transform.DOScale(_defaultSelectionSize, 0.1f);
+    }
+
+    public void HideSelection()
+    {
+        SelectionSprite.transform.DOScale(Vector3.zero, 0.1f);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Unit"))
@@ -151,6 +166,9 @@ public class Node : MonoBehaviour
                 UnitsCount++;
                 InitializeNode();
             }
+
+            if (UnitsCount > PlayerPrefs.GetInt("MaxUnits") && NodeSide == GameManager.Side.Player)
+                PlayerPrefs.SetInt("MaxUnits", UnitsCount);
 
             Destroy(unit.gameObject);
             GameManager.CheckAllNodes();

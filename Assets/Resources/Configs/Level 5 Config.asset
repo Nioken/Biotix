@@ -14,6 +14,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPlay: 0
   IsPassed: 0
-  UnitSpeed: 0
-  CreateSpeed: 0
-  NodesInfo: []
+  UnitSpeed: 20
+  CreateSpeed: 0.4
+  NodesInfo:
+  - Position: {x: -0.05, y: 2.17, z: 0}
+    Scale: {x: 0.37886474, y: 0.37886474, z: 0.37886474}
+    NodeSide: 0
+    StartUnits: 20
+  - Position: {x: 0, y: -2.22, z: 0}
+    Scale: {x: 0.31523097, y: 0.31523097, z: 0.31523097}
+    NodeSide: 1
+    StartUnits: 20
+  - Position: {x: -6.22, y: 0, z: 0}
+    Scale: {x: 0.3142091, y: 0.3142091, z: 0.3142091}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: -4, y: -2.46, z: 0}
+    Scale: {x: 0.2854694, y: 0.2854694, z: 0.2854694}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 4.04, y: 0, z: 0}
+    Scale: {x: 0.26289567, y: 0.26289567, z: 0.26289567}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 6.86, y: 2.54, z: 0}
+    Scale: {x: 0.26597285, y: 0.26597285, z: 0.26597285}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: -5.77, y: 3.27, z: 0}
+    Scale: {x: 0.2208138, y: 0.2208138, z: 0.2208138}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 6.98, y: -2.75, z: 0}
+    Scale: {x: 0.25570786, y: 0.25570786, z: 0.25570786}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: -2.83, y: 0.28, z: 0}
+    Scale: {x: 0.23723316, y: 0.23723316, z: 0.23723316}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 3.51, y: -3.03, z: 0}
+    Scale: {x: 0.21464783, y: 0.21464783, z: 0.21464783}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: -7.96, y: -3.11, z: 0}
+    Scale: {x: 0.22183566, y: 0.22183566, z: 0.22183566}
+    NodeSide: 2
+    StartUnits: 0
+  MinAIThinkTime: 1
+  MaxAIThinkTime: 2

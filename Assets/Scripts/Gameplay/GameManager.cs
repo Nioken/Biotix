@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Node _nodePrefab;
     [SerializeField] public static List<Node> AllNodes;
     [SerializeField] public static UIManager _uiManager;
+    [SerializeField] private SpriteRenderer _background;
 
     public enum Side
     {
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _background.transform.DOShakeScale(10f, 1f, 2,90,false).SetLoops(-1);
         Debug.Log("Level config: " + Config.name);
         Debug.Log("Unit speed: " + Config.UnitSpeed);
         Debug.Log("Unit creation speed: " + Config.CreateSpeed);
@@ -96,6 +99,12 @@ public class GameManager : MonoBehaviour
         }
         else
             _uiManager.ShowLevelEndUI(false);
+
+        if(Time.timeSinceLevelLoad > PlayerPrefs.GetFloat("MaxLevelTime"))
+            PlayerPrefs.SetFloat("MaxLevelTime", Time.timeSinceLevelLoad);
+
+        if (Time.timeSinceLevelLoad < PlayerPrefs.GetFloat("MinLevelTime"))
+            PlayerPrefs.SetFloat("MinLevelTime", Time.timeSinceLevelLoad);
 
         MenuManager.SaveLevelsProgress();
     }

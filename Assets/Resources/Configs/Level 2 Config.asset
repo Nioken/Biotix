@@ -15,7 +15,7 @@ MonoBehaviour:
   canPlay: 0
   IsPassed: 0
   UnitSpeed: 10
-  CreateSpeed: 0.2
+  CreateSpeed: 2
   NodesInfo:
   - Position: {x: -5.34, y: 2.92, z: 0}
     Scale: {x: 0.37271038, y: 0.37271038, z: 0.37271038}
@@ -49,3 +49,9 @@ MonoBehaviour:
     Scale: {x: 0.32344064, y: 0.32344064, z: 0.32344064}
     NodeSide: 2
     StartUnits: 0
+  - Position: {x: 4.22, y: 3.13, z: 0}
+    Scale: {x: 0.31523097, y: 0.31523097, z: 0.31523097}
+    NodeSide: 2
+    StartUnits: 0
+  MinAIThinkTime: 2
+  MaxAIThinkTime: 8

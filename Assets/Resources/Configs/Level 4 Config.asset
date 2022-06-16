@@ -14,6 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPlay: 0
   IsPassed: 0
-  UnitSpeed: 0
-  CreateSpeed: 0
-  NodesInfo: []
+  UnitSpeed: 40
+  CreateSpeed: 0.5
+  NodesInfo:
+  - Position: {x: -7.86, y: 1.27, z: 0}
+    Scale: {x: 0.2752044, y: 0.2752044, z: 0.2752044}
+    NodeSide: 0
+    StartUnits: 20
+  - Position: {x: 7.47, y: -2.16, z: 0}
+    Scale: {x: 0.2854694, y: 0.2854694, z: 0.2854694}
+    NodeSide: 1
+    StartUnits: 20
+  - Position: {x: 0, y: 0, z: 0}
+    Scale: {x: 0.20541629, y: 0.20541629, z: 0.20541629}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: 2.57, y: 2.57, z: 0}
+    Scale: {x: 0.3413556, y: 0.3413556, z: 0.3413556}
+    NodeSide: 2
+    StartUnits: 0
+  - Position: {x: -3.35, y: -2.35, z: 0}
+    Scale: {x: 0.3614235, y: 0.3614235, z: 0.3614235}
+    NodeSide: 2
+    StartUnits: 0
+  MinAIThinkTime: 1
+  MaxAIThinkTime: 2
