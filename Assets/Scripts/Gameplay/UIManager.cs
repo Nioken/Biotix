@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         Settings.LoadSettings();
-        GameManager._uiManager = GetComponent<UIManager>();
+        GameManager.ManagerUI = GetComponent<UIManager>();
         AddUIListeners();
     }
 

@@ -89,12 +89,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitText: {fileID: 5420184303217646752}
-  UnitsCount: 0
-  NodeSide: 2
   _unitPrefab: {fileID: 7582305098113904005, guid: f97fb433e9bf1b24989fa9847bc4dbc3, type: 3}
   GreenMaterial: {fileID: 2100000, guid: a31571f4cf4e74d4189450d45d244178, type: 2}
   RedMaterial: {fileID: 2100000, guid: 2b9df452efe55b349bb8179ad105851e, type: 2}
   WhiteMaterial: {fileID: 2100000, guid: cc1e1592475ce9a4d8f885b6eadf8c7a, type: 2}
+  NodeSide: 2
+  UnitsCount: 0
   SelectionSprite: {fileID: 1669686799215178099}
 --- !u!23 &409207352835711490
 MeshRenderer:

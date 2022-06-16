@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEditor.SceneManagement;
-using System;
-using System.Threading;
 
 [CustomEditor(typeof(LevelConfig))]
 public class LevelEditor : Editor
@@ -80,6 +76,7 @@ public class LevelEditor : Editor
             config.NodesInfo[i] = new LevelConfig.NodeInfo(nodes[i].transform.position,nodes[i].transform.localScale, nodes[i].NodeSide, nodes[i].UnitsCount);
             DestroyImmediate(nodes[i]);
         }
+
         EditorSceneManager.OpenScene("Assets/Scenes/MenuScene.unity");
     }
 

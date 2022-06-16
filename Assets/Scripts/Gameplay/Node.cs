@@ -1,24 +1,23 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using DG.Tweening;
 
 public class Node : MonoBehaviour
 {
     [SerializeField] private TMP_Text UnitText;
-    [SerializeField] public int UnitsCount;
-    [SerializeField] public GameManager.Side NodeSide;
     [SerializeField] private Unit _unitPrefab;
-    private float _spawnRadius;
-
     [SerializeField] private Material GreenMaterial;
     [SerializeField] private Material RedMaterial;
     [SerializeField] private Material WhiteMaterial;
+    public GameManager.Side NodeSide;
+    public int UnitsCount;
     public GameObject SelectionSprite;
     private Vector3 _defaultSelectionSize;
     private Vector3 _defaultSacle;
+    private float _spawnRadius;
+    private const float MinSpawnUnitDelay = 0.2f;
+    private const float MaxSpawnUnitDelay = 0.4f;
 
     private void Start()
     {
@@ -102,8 +101,7 @@ public class Node : MonoBehaviour
 
     private Unit CreateUnit(GameManager.Side unitSide)
     {
-        var unitPosition = transform.position + UnityEngine.Random.insideUnitSphere * _spawnRadius;
-
+        var unitPosition = transform.position + Random.insideUnitSphere * _spawnRadius;
         var unit = Instantiate(_unitPrefab, unitPosition, Quaternion.identity);
         unit.UnitSide = unitSide;
         return unit;
@@ -115,7 +113,7 @@ public class Node : MonoBehaviour
         for (var i = 0; i < unitAmount; i++)
         {
             CreateUnit(tmpSide).MoveTo(unitsTarget);
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f,0.4f));
+            yield return new WaitForSeconds(Random.Range(MinSpawnUnitDelay, MaxSpawnUnitDelay));
         }
     }
 
@@ -129,6 +127,17 @@ public class Node : MonoBehaviour
         SelectionSprite.transform.DOScale(Vector3.zero, 0.1f);
     }
 
+    private void PlayUnitAddAnimation()
+    {
+        transform.DOScale(_defaultSacle + new Vector3(0.03f, 0.03f, 0.03f), 0.1f).OnComplete(() => transform.DOScale(_defaultSacle, 0.1f));
+    }
+
+    private void CheckRecord()
+    {
+        if (UnitsCount > PlayerPrefs.GetInt("MaxUnits") && NodeSide == GameManager.Side.Player)
+            PlayerPrefs.SetInt("MaxUnits", UnitsCount);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Unit"))
@@ -139,7 +148,7 @@ public class Node : MonoBehaviour
                 return;
 
             AudioManager.PlayUnitAddSound();
-            transform.DOScale(_defaultSacle + new Vector3(0.03f, 0.03f, 0.03f), 0.1f).OnComplete(() => transform.DOScale(_defaultSacle, 0.1f));
+            PlayUnitAddAnimation();
             if (NodeSide == unit.UnitSide)
             {
                 UnitsCount++;
@@ -167,9 +176,7 @@ public class Node : MonoBehaviour
                 InitializeNode();
             }
 
-            if (UnitsCount > PlayerPrefs.GetInt("MaxUnits") && NodeSide == GameManager.Side.Player)
-                PlayerPrefs.SetInt("MaxUnits", UnitsCount);
-
+            CheckRecord();
             Destroy(unit.gameObject);
             GameManager.CheckAllNodes();
         }

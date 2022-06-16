@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(Node))]
@@ -17,6 +14,7 @@ public class NodeEditor : Editor
         SerializedProperty whiteMaterial = serializedNode.FindProperty("WhiteMaterial");
         SerializedProperty unitPrefab = serializedNode.FindProperty("_unitPrefab");
         SerializedProperty selectionSprite = serializedNode.FindProperty("SelectionSprite");
+
         EditorGUILayout.PropertyField(side);
         EditorGUILayout.PropertyField(units);
         EditorGUILayout.PropertyField(greenMaterial);

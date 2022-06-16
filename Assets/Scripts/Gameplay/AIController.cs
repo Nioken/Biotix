@@ -20,11 +20,9 @@ public class AIController : MonoBehaviour
 
     private IEnumerator DoFirstStep()
     {
-        Debug.Log("AI: I come to did first step!");
         yield return new WaitForSeconds(Random.Range(1,3));
-        var NotCapturedNodes = ReturnNotCapturedNodes();
-        _startNode.SendUnit(NotCapturedNodes[Random.Range(0, NotCapturedNodes.Count)]);
-        Debug.Log("AI: I did it!");
+        var notCapturedNodes = ReturnNotCapturedNodes();
+        _startNode.SendUnit(notCapturedNodes[Random.Range(0, notCapturedNodes.Count)]);
         StartCoroutine(AIRandomStep());
     }
 
@@ -52,28 +50,36 @@ public class AIController : MonoBehaviour
     {
         var playerNodes = ReturnAllPlayerNodes();
         var aiNodes = ReturnAllAINodes();
-        var maxUnits = 0;
-        foreach(var aiNode in aiNodes)
-        {
-            if (aiNode.UnitsCount >= maxUnits)
-            {
-                maxUnits = aiNode.UnitsCount;
-                _firstNode = aiNode;
-            }
-        }
-
-        var minUntits = playerNodes[0].UnitsCount;
-        foreach(var playerNode in playerNodes)
-        {
-            if (playerNode.UnitsCount <= minUntits)
-            {
-                minUntits = playerNode.UnitsCount;
-                _secondNode = playerNode;
-            }
-        }
-
+        GetMaxUnits(aiNodes);
+        GetMinUnits(playerNodes);
         if(_firstNode.UnitsCount > _secondNode.UnitsCount)
             _firstNode.SendUnit(_secondNode);
+    }
+
+    private void GetMaxUnits(List<Node> nodes)
+    {
+        var maxUnits = 0;
+        foreach (var node in nodes)
+        {
+            if (node.UnitsCount >= maxUnits)
+            {
+                maxUnits = node.UnitsCount;
+                _firstNode = node;
+            }
+        }
+    }
+
+    private void GetMinUnits(List<Node> nodes)
+    {
+        var minUntits = nodes[0].UnitsCount;
+        foreach (var node in nodes)
+        {
+            if (node.UnitsCount <= minUntits)
+            {
+                minUntits = node.UnitsCount;
+                _secondNode = node;
+            }
+        }
     }
 
     private void FromRandomToRandomNodeStep()

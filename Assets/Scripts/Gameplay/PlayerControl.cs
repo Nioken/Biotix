@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -65,35 +63,36 @@ public class PlayerControl : MonoBehaviour
     private void PlayerInput()
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out _hit))
-        {
             if (_hit.collider.CompareTag("Node"))
-            {
-                var castedNode = GameManager.ReturnNode(_hit.collider.gameObject);
-                if (_firstNode == null)
-                {
-                    if (castedNode.NodeSide == GameManager.Side.Player)
-                    {
-                        _firstNode = castedNode;
-                    }
-                }
-                else
-                {
-                    if (castedNode != _firstNode)
-                    {
-                        _secondNode = castedNode;
-                        _secondNode.ShowSelection();
-                    }
-                }
-            }
+                CheckCastNode(GameManager.ReturnNode(_hit.collider.gameObject));
+        else
+            NotNodeCasted();
+    }
+
+    private void NotNodeCasted()
+    {
+        if (_firstNode != null)
+        {
+            if (_secondNode != null)
+                _secondNode.HideSelection();
+
+            _secondNode = null;
+        }
+    }
+
+    private void CheckCastNode(Node castedNode)
+    {
+        if (_firstNode == null)
+        {
+            if (castedNode.NodeSide == GameManager.Side.Player)
+                _firstNode = castedNode;
         }
         else
         {
-            if(_firstNode != null)
+            if (castedNode != _firstNode)
             {
-                if (_secondNode != null)
-                    _secondNode.HideSelection();
-
-                _secondNode = null;
+                _secondNode = castedNode;
+                _secondNode.ShowSelection();
             }
         }
     }
@@ -109,6 +108,7 @@ public class PlayerControl : MonoBehaviour
                 y = Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
                 z = 0
             };
+
             _playerLine.SetPosition(1, secondDotPosition);
         }
         else
